@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
-	sqc "github.com/ariga/sqlcomment"
+	"github.com/ariga/sqlcomment"
 	_ "github.com/mattn/go-sqlite3"
 
 	"github.com/ariga/sqlcomment/examples/ent"
@@ -29,8 +29,8 @@ type (
 	MyCustomCommenter struct{}
 )
 
-func (mcc MyCustomCommenter) Tag(ctx context.Context) sqc.Tags {
-	return sqc.Tags{
+func (mcc MyCustomCommenter) Tag(ctx context.Context) sqlcomment.Tags {
+	return sqlcomment.Tags{
 		"key": "value",
 	}
 }
@@ -66,21 +66,21 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
-	commentedDriver := sqc.NewDriver(dialect.Debug(db),
-		sqc.WithTagger(
+	commentedDriver := sqlcomment.NewDriver(dialect.Debug(db),
+		sqlcomment.WithTagger(
 			// add tracing info with Open Telemetry.
-			sqc.NewOtelTagger(),
+			sqlcomment.NewOtelTagger(),
 			// use your custom commenter
 			MyCustomCommenter{},
 			// map routeKey{} from context to tag named "route"
-			sqc.NewContextMapper(sqc.KeyRoute, routeKey{}),
+			sqlcomment.NewContextMapper(sqlcomment.KeyRoute, routeKey{}),
 		),
 		// add `db_driver` version tag
-		sqc.WithDriverVersion(),
+		sqlcomment.WithDriverVersion(),
 		// add some global tags to all queries
-		sqc.WithTags(sqc.Tags{
-			sqc.KeyAppliaction: "bootcamp",
-			sqc.KeyFramework:   "go-chi",
+		sqlcomment.WithTags(sqlcomment.Tags{
+			sqlcomment.KeyAppliaction: "bootcamp",
+			sqlcomment.KeyFramework:   "go-chi",
 		}))
 	// create and configure ent client
 	client := ent.NewClient(ent.Driver(commentedDriver))
@@ -92,7 +92,7 @@ func main() {
 
 	client.User.Create().SetName("hedwigz").SaveX(context.Background())
 
-	// this http middleware adds the url path to the request context, to later be used by sqc.ContextMapper.
+	// this http middleware adds the url path to the request context, to later be used by sqlcomment.ContextMapper.
 	middleware := func(next http.Handler) http.Handler {
 		fn := func(w http.ResponseWriter, r *http.Request) {
 			c := context.WithValue(r.Context(), routeKey{}, r.URL.Path)

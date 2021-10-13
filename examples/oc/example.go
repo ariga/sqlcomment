@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
-	sqc "github.com/ariga/sqlcomment"
+	"github.com/ariga/sqlcomment"
 	"github.com/ariga/sqlcomment/examples/ent"
 
 	"go.opencensus.io/examples/exporter"
@@ -57,13 +57,13 @@ func main() {
 	}
 	// create sqlcommenter driver which wraps debug driver which wraps sqlite driver
 	// we should have sqlcommenter and debug logs on every query to our sqlite DB
-	commentedDriver := sqc.NewDriver(dialect.Debug(db),
+	commentedDriver := sqlcomment.NewDriver(dialect.Debug(db),
 		// add OpenCensus tracing tags
-		sqc.WithTagger(sqc.NewOCTagger()),
-		sqc.WithDriverVersion(),
-		sqc.WithTags(sqc.Tags{
-			sqc.KeyAppliaction: "users",
-			sqc.KeyFramework:   "net/http",
+		sqlcomment.WithTagger(sqlcomment.NewOCTagger()),
+		sqlcomment.WithDriverVersion(),
+		sqlcomment.WithTags(sqlcomment.Tags{
+			sqlcomment.KeyAppliaction: "users",
+			sqlcomment.KeyFramework:   "net/http",
 		}),
 	)
 	// create and configure ent client

@@ -1,4 +1,4 @@
-package sqlcommenter
+package sqlcomment
 
 import (
 	"testing"
