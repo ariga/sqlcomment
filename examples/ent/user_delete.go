@@ -9,8 +9,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/ariga/sqlcommenter/examples/ent/predicate"
-	"github.com/ariga/sqlcommenter/examples/ent/user"
+	"github.com/ariga/sqlcomment/examples/ent/predicate"
+	"github.com/ariga/sqlcomment/examples/ent/user"
 )
 
 // UserDelete is the builder for deleting a User entity.

@@ -10,10 +10,10 @@ import (
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
-	sqc "github.com/ariga/sqlcommenter"
+	sqc "github.com/ariga/sqlcomment"
 	_ "github.com/mattn/go-sqlite3"
 
-	"github.com/ariga/sqlcommenter/examples/ent"
+	"github.com/ariga/sqlcomment/examples/ent"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel"
 	stdout "go.opentelemetry.io/otel/exporters/stdout/stdouttrace"

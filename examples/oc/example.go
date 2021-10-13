@@ -10,8 +10,8 @@ import (
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
-	sqc "github.com/ariga/sqlcommenter"
-	"github.com/ariga/sqlcommenter/examples/ent"
+	sqc "github.com/ariga/sqlcomment"
+	"github.com/ariga/sqlcomment/examples/ent"
 
 	"go.opencensus.io/examples/exporter"
 	"go.opencensus.io/plugin/ochttp"

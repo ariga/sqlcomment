@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/ariga/sqlcommenter/examples/ent/predicate"
-	"github.com/ariga/sqlcommenter/examples/ent/user"
+	"github.com/ariga/sqlcomment/examples/ent/predicate"
+	"github.com/ariga/sqlcomment/examples/ent/user"
 
 	"entgo.io/ent"
 )

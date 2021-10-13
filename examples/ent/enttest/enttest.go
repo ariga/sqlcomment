@@ -5,9 +5,9 @@ package enttest
 import (
 	"context"
 
-	"github.com/ariga/sqlcommenter/examples/ent"
+	"github.com/ariga/sqlcomment/examples/ent"
 	// required by schema hooks.
-	_ "github.com/ariga/sqlcommenter/examples/ent/runtime"
+	_ "github.com/ariga/sqlcomment/examples/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
 )
