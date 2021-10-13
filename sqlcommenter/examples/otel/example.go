@@ -8,12 +8,12 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	sqc "entgo.io/contrib/sqlcommenter"
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
+	sqc "github.com/ariga/sqlcommenter"
 	_ "github.com/mattn/go-sqlite3"
 
-	"entgo.io/contrib/sqlcommenter/examples/ent"
+	"github.com/ariga/sqlcommenter/examples/ent"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel"
 	stdout "go.opentelemetry.io/otel/exporters/stdout/stdouttrace"

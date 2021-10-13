@@ -7,9 +7,9 @@ import (
 	"errors"
 	"fmt"
 
-	"entgo.io/contrib/sqlcommenter/examples/ent/user"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/ariga/sqlcommenter/examples/ent/user"
 )
 
 // UserCreate is the builder for creating a User entity.

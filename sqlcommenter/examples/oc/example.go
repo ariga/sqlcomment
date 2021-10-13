@@ -8,10 +8,10 @@ import (
 	"net/http/httptest"
 	"time"
 
-	sqc "entgo.io/contrib/sqlcommenter"
-	"entgo.io/contrib/sqlcommenter/examples/ent"
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
+	sqc "github.com/ariga/sqlcommenter"
+	"github.com/ariga/sqlcommenter/examples/ent"
 
 	"go.opencensus.io/examples/exporter"
 	"go.opencensus.io/plugin/ochttp"

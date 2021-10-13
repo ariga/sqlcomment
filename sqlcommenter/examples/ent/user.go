@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"entgo.io/contrib/sqlcommenter/examples/ent/user"
 	"entgo.io/ent/dialect/sql"
+	"github.com/ariga/sqlcommenter/examples/ent/user"
 )
 
 // User is the model entity for the User schema.
