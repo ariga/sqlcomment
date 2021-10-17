@@ -30,47 +30,51 @@ func (dv driverVersionTagger) Tag(ctx context.Context) Tags {
 	}
 }
 
-// ContextMapper is a Tagger that maps context values to tags
-// for example, if you want to add 'route' tag to your SQL comment, put the url path on request context:
-//  type routeKey struct{}
-//  middleware := func(next http.Handler) http.Handler {
-//  	fn := func(w http.ResponseWriter, r *http.Request) {
-//  		c := context.WithValue(r.Context(), routeKey{}, r.URL.Path)
-//  		next.ServeHTTP(w, r.WithContext(c))
-//  	}
-//  	return http.HandlerFunc(fn)
-//  }
-// and use ContextMapper to map that route to SQL tag, in your sqlcommenter init code:
-//  sqc.NewDriver(drv, sqc.WithTagger(sqc.NewContextMapper("route", routeKey{})))
-type ContextMapper struct {
-	contextKey interface{}
-	tagKey     string
-}
+type contextKey struct{}
 
-func NewContextMapper(tagKey string, contextKey interface{}) ContextMapper {
-	return ContextMapper{
-		tagKey:     tagKey,
-		contextKey: contextKey,
+// WithTag stores the key and val pair on the context.
+// for example, if you want to add `route` tag to your SQL comment, put the url path on request context:
+//	middleware := func(next http.Handler) http.Handler {
+//		fn := func(w http.ResponseWriter, r *http.Request) {
+//			c := sqlcomment.WithTag(r.Context(), "route", r.URL.Path)
+//			next.ServeHTTP(w, r.WithContext(c))
+//		}
+//		return http.HandlerFunc(fn)
+//	}
+func WithTag(ctx context.Context, key, val string) context.Context {
+	t, ok := ctx.Value(contextKey{}).(*Tags)
+	if !ok {
+		return context.WithValue(ctx, contextKey{}, &Tags{key: val})
 	}
+	tags := *t
+	tags[key] = val
+	return context.WithValue(ctx, contextKey{}, tags)
 }
 
-func (cm ContextMapper) Tag(ctx context.Context) Tags {
-	switch v := ctx.Value(cm.contextKey).(type) {
-	case string:
-		return Tags{cm.tagKey: v}
-	default:
-		return nil
+// FromContext returns the tags stored in ctx, if any.
+func FromContext(ctx context.Context) Tags {
+	t, ok := ctx.Value(contextKey{}).(*Tags)
+	if !ok {
+		return Tags{}
 	}
+	return *t
 }
 
-type StaticTagger struct {
+type contextTagger struct{}
+
+func (ct contextTagger) Tag(ctx context.Context) Tags {
+	return FromContext(ctx)
+}
+
+type staticTagger struct {
 	tags Tags
 }
 
-func NewStaticTagger(tags Tags) StaticTagger {
-	return StaticTagger{tags}
+// NewStaticTagger returns an Tagger which adds tags to every SQL comment.
+func NewStaticTagger(tags Tags) staticTagger {
+	return staticTagger{tags}
 }
 
-func (st StaticTagger) Tag(ctx context.Context) Tags {
+func (st staticTagger) Tag(ctx context.Context) Tags {
 	return st.tags
 }

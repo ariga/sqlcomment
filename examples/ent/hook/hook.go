@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/ariga/sqlcomment/examples/ent"
+	"ariga.io/sqlcomment/examples/ent"
 )
 
 // The UserFunc type is an adapter to allow the use of ordinary

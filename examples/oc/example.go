@@ -8,10 +8,10 @@ import (
 	"net/http/httptest"
 	"time"
 
+	"ariga.io/sqlcomment"
+	"ariga.io/sqlcomment/examples/ent"
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
-	"github.com/ariga/sqlcomment"
-	"github.com/ariga/sqlcomment/examples/ent"
 
 	"go.opencensus.io/examples/exporter"
 	"go.opencensus.io/plugin/ochttp"
@@ -60,7 +60,7 @@ func main() {
 	commentedDriver := sqlcomment.NewDriver(dialect.Debug(db),
 		// add OpenCensus tracing tags
 		sqlcomment.WithTagger(sqlcomment.NewOCTagger()),
-		sqlcomment.WithDriverVersion(),
+		sqlcomment.WithDriverVerTag(),
 		sqlcomment.WithTags(sqlcomment.Tags{
 			sqlcomment.KeyAppliaction: "users",
 			sqlcomment.KeyFramework:   "net/http",

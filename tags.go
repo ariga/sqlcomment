@@ -10,7 +10,7 @@ import (
 const (
 	KeyDBDriver    = "db_driver"
 	KeyFramework   = "framework"
-	KeyAppliaction = "application"
+	KeyApplication = "application"
 	KeyRoute       = "route"
 	KeyController  = "controller"
 	KeyAction      = "action"

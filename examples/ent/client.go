@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ariga/sqlcomment/examples/ent/migrate"
+	"ariga.io/sqlcomment/examples/ent/migrate"
 
-	"github.com/ariga/sqlcomment/examples/ent/user"
+	"ariga.io/sqlcomment/examples/ent/user"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"

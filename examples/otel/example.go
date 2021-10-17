@@ -8,12 +8,12 @@ import (
 	"net/http"
 	"net/http/httptest"
 
+	"ariga.io/sqlcomment"
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
-	"github.com/ariga/sqlcomment"
 	_ "github.com/mattn/go-sqlite3"
 
-	"github.com/ariga/sqlcomment/examples/ent"
+	"ariga.io/sqlcomment/examples/ent"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel"
 	stdout "go.opentelemetry.io/otel/exporters/stdout/stdouttrace"
@@ -24,10 +24,7 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.4.0"
 )
 
-type (
-	routeKey          struct{}
-	MyCustomCommenter struct{}
-)
+type MyCustomCommenter struct{}
 
 func (mcc MyCustomCommenter) Tag(ctx context.Context) sqlcomment.Tags {
 	return sqlcomment.Tags{
@@ -69,14 +66,12 @@ func main() {
 	commentedDriver := sqlcomment.NewDriver(dialect.Debug(db),
 		sqlcomment.WithTagger(
 			// add tracing info with Open Telemetry.
-			sqlcomment.NewOtelTagger(),
+			sqlcomment.NewOTELTagger(),
 			// use your custom commenter
 			MyCustomCommenter{},
-			// map routeKey{} from context to tag named "route"
-			sqlcomment.NewContextMapper(sqlcomment.KeyRoute, routeKey{}),
 		),
 		// add `db_driver` version tag
-		sqlcomment.WithDriverVersion(),
+		sqlcomment.WithDriverVerTag(),
 		// add some global tags to all queries
 		sqlcomment.WithTags(sqlcomment.Tags{
 			sqlcomment.KeyAppliaction: "bootcamp",
@@ -92,15 +87,15 @@ func main() {
 
 	client.User.Create().SetName("hedwigz").SaveX(context.Background())
 
-	// this http middleware adds the url path to the request context, to later be used by sqlcomment.ContextMapper.
+	// this http middleware adds the url path to sqlcomment tags, under the key "route".
 	middleware := func(next http.Handler) http.Handler {
 		fn := func(w http.ResponseWriter, r *http.Request) {
-			c := context.WithValue(r.Context(), routeKey{}, r.URL.Path)
+			c := sqlcomment.WithTag(r.Context(), "route", r.URL.Path)
 			next.ServeHTTP(w, r.WithContext(c))
 		}
 		return http.HandlerFunc(fn)
 	}
-	// some app http handler
+	// some appplication-level http handler
 	getUsersHandler := func(rw http.ResponseWriter, r *http.Request) {
 		users := client.User.Query().AllX(r.Context())
 		b, _ := json.Marshal(users)
@@ -113,7 +108,7 @@ func main() {
 }
 
 func testRequest(handler http.Handler) {
-	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	req := httptest.NewRequest(http.MethodGet, "/api/resource", nil)
 	w := httptest.NewRecorder()
 
 	// debug printer should print sql statement with comment

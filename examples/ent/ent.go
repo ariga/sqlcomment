@@ -6,9 +6,9 @@ import (
 	"errors"
 	"fmt"
 
+	"ariga.io/sqlcomment/examples/ent/user"
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/ariga/sqlcomment/examples/ent/user"
 )
 
 // ent aliases to avoid import conflicts in user's code.

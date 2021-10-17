@@ -7,17 +7,19 @@ import (
 )
 
 type (
-	// OtelTagger is a Tagger that adds `traceparent` and `tracestate` tags to the SQL comment.
-	OtelTagger struct{}
-	// CommentCarrier implements propagation.TextMapCarrier
+	// OTELTagger is a Tagger that adds `traceparent` and `tracestate` tags to the SQL comment.
+	OTELTagger struct{}
+	// CommentCarrier implements propagation.TextMapCarrier in order to retrieve trace information from OTEL.
 	CommentCarrier Tags
 )
 
-func NewOtelTagger() OtelTagger {
-	return OtelTagger{}
+// NewOTELTagger adds OTEL trace information as SQL tags.
+func NewOTELTagger() OTELTagger {
+	return OTELTagger{}
 }
 
-func (ot OtelTagger) Tag(ctx context.Context) Tags {
+// Tag finds trace information on the given context and returns SQL tags with trace information.
+func (ot OTELTagger) Tag(ctx context.Context) Tags {
 	c := NewCommentCarrier()
 	otel.GetTextMapPropagator().Inject(ctx, c)
 

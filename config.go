@@ -30,8 +30,8 @@ func WithTags(tags Tags) Option {
 	}
 }
 
-// WithDriverVersion adds `db_driver` tag with the current version of ent.
-func WithDriverVersion() Option {
+// WithDriverVerTag adds `db_driver` tag with the current version of ent.
+func WithDriverVerTag() Option {
 	return func(opts *options) {
 		opts.taggers = append(opts.taggers, NewDriverVersionTagger())
 	}

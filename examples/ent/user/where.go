@@ -3,8 +3,8 @@
 package user
 
 import (
+	"ariga.io/sqlcomment/examples/ent/predicate"
 	"entgo.io/ent/dialect/sql"
-	"github.com/ariga/sqlcomment/examples/ent/predicate"
 )
 
 // ID filters vertices based on their ID field.

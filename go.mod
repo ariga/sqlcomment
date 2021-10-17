@@ -1,4 +1,4 @@
-module github.com/ariga/sqlcomment
+module ariga.io/sqlcomment
 
 go 1.17
 

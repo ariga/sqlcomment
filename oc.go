@@ -17,6 +17,7 @@ type OCTagger struct {
 	format *tracecontext.HTTPFormat
 }
 
+// NewOCTagger adds OC trace information as SQL tags.
 func NewOCTagger() OCTagger {
 	return OCTagger{&tracecontext.HTTPFormat{}}
 }
