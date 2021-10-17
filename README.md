@@ -19,7 +19,7 @@ if err != nil {
   log.Fatalf("Failed to connect to database: %v", err)
 }
 // create sqlcomment driver which wraps sqlite driver.
-drv := sqlcomment.NewDriver(db),
+drv := sqlcomment.NewDriver(db,
   sqlcomment.WithDriverVerTag(),
   sqlcomment.WithTags(sqlcomment.Tags{
     sqlcomment.KeyApplication: "my-app",
