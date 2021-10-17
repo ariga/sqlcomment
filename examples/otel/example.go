@@ -74,7 +74,7 @@ func main() {
 		sqlcomment.WithDriverVerTag(),
 		// add some global tags to all queries
 		sqlcomment.WithTags(sqlcomment.Tags{
-			sqlcomment.KeyAppliaction: "bootcamp",
+			sqlcomment.KeyApplication: "bootcamp",
 			sqlcomment.KeyFramework:   "go-chi",
 		}))
 	// create and configure ent client

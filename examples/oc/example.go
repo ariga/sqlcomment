@@ -62,7 +62,7 @@ func main() {
 		sqlcomment.WithTagger(sqlcomment.NewOCTagger()),
 		sqlcomment.WithDriverVerTag(),
 		sqlcomment.WithTags(sqlcomment.Tags{
-			sqlcomment.KeyAppliaction: "users",
+			sqlcomment.KeyApplication: "users",
 			sqlcomment.KeyFramework:   "net/http",
 		}),
 	)
