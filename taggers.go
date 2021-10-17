@@ -36,8 +36,8 @@ type contextKey struct{}
 // for example, if you want to add `route` tag to your SQL comment, put the url path on request context:
 //	middleware := func(next http.Handler) http.Handler {
 //		fn := func(w http.ResponseWriter, r *http.Request) {
-//			c := sqlcomment.WithTag(r.Context(), "route", r.URL.Path)
-//			next.ServeHTTP(w, r.WithContext(c))
+//			ctx := sqlcomment.WithTag(r.Context(), "route", r.URL.Path)
+//			next.ServeHTTP(w, r.WithContext(ctx))
 //		}
 //		return http.HandlerFunc(fn)
 //	}

@@ -16,6 +16,8 @@ const (
 	KeyAction      = "action"
 )
 
+// Tags represents key value pairs which can be serialized into SQL comment.
+// see https://google.github.io/sqlcommenter/spec/
 type Tags map[string]string
 
 func encodeValue(v string) string {

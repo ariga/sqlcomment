@@ -50,7 +50,7 @@ func initTracer() func() {
 func main() {
 	closeTracer := initTracer()
 	defer closeTracer()
-	// create db driver
+	// Create db driver.
 	db, err := sql.Open("sqlite3", "file:ent?mode=memory&cache=shared&_fk=1")
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
