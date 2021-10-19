@@ -30,36 +30,6 @@ func (dv driverVersionTagger) Tag(ctx context.Context) Tags {
 	}
 }
 
-type contextKey struct{}
-
-// WithTag stores the key and val pair on the context.
-// for example, if you want to add `route` tag to your SQL comment, put the url path on request context:
-//	middleware := func(next http.Handler) http.Handler {
-//		fn := func(w http.ResponseWriter, r *http.Request) {
-//			ctx := sqlcomment.WithTag(r.Context(), "route", r.URL.Path)
-//			next.ServeHTTP(w, r.WithContext(ctx))
-//		}
-//		return http.HandlerFunc(fn)
-//	}
-func WithTag(ctx context.Context, key, val string) context.Context {
-	t, ok := ctx.Value(contextKey{}).(*Tags)
-	if !ok {
-		return context.WithValue(ctx, contextKey{}, &Tags{key: val})
-	}
-	tags := *t
-	tags[key] = val
-	return context.WithValue(ctx, contextKey{}, tags)
-}
-
-// FromContext returns the tags stored in ctx, if any.
-func FromContext(ctx context.Context) Tags {
-	t, ok := ctx.Value(contextKey{}).(*Tags)
-	if !ok {
-		return Tags{}
-	}
-	return *t
-}
-
 type contextTagger struct{}
 
 func (ct contextTagger) Tag(ctx context.Context) Tags {
