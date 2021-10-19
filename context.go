@@ -18,7 +18,7 @@ var ctxOptionsKey ctxKeyType
 // Skip returns a new Context that tells the Driver
 // to skip the commenting on Query.
 //
-//	client.T.Query().All(entcache.Skip(ctx))
+//	client.T.Query().All(sqlcomment.Skip(ctx))
 //
 func Skip(ctx context.Context) context.Context {
 	c, ok := ctx.Value(ctxOptionsKey).(*ctxOptions)
