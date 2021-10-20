@@ -9,16 +9,12 @@ go install ariga.io/sqlcomment
 
 # Basic Usage
 ```go
-import (
-  "ariga.io/sqlcomment"
-  "entgo.io/ent/dialect/sql"
-)
 // Create db driver.
 db, err := sql.Open("sqlite3", "file:ent?mode=memory&cache=shared&_fk=1")
 if err != nil {
   log.Fatalf("Failed to connect to database: %v", err)
 }
-// create sqlcomment driver which wraps sqlite driver.
+// Create sqlcomment driver which wraps sqlite driver.
 drv := sqlcomment.NewDriver(db,
   sqlcomment.WithDriverVerTag(),
   sqlcomment.WithTags(sqlcomment.Tags{
@@ -26,7 +22,7 @@ drv := sqlcomment.NewDriver(db,
     sqlcomment.KeyFramework:   "net/http",
   }),
 )
-// create and configure ent client
+// Create and configure ent client
 client := ent.NewClient(ent.Driver(drv))
 ```
 
