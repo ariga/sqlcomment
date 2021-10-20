@@ -10,6 +10,7 @@ go install ariga.io/sqlcomment
 # Basic Usage
 ```go
 // Create db driver.
+// make sure to import "entgo.io/ent/dialect/sql" instead of "database/sql"
 db, err := sql.Open("sqlite3", "file:ent?mode=memory&cache=shared&_fk=1")
 if err != nil {
   log.Fatalf("Failed to connect to database: %v", err)
