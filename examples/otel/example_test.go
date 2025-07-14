@@ -31,7 +31,7 @@ func (mcc CustomCommenter) Tag(ctx context.Context) sqlcomment.Tags {
 	}
 }
 
-func Example_OTELIntegration() {
+func Example_otelIntegration() {
 	tp := initTracer()
 	defer func() {
 		if err := tp.Shutdown(context.Background()); err != nil {
